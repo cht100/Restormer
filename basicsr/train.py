@@ -1,3 +1,5 @@
+import os
+os.environ["NCCL_TIMEOUT"] = "1800"
 import argparse
 import datetime
 import logging
