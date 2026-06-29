@@ -111,6 +111,10 @@ class Dataset_PairedImage(data.Dataset):
             # flip, rotation augmentations
             if self.geometric_augs:
                 img_gt, img_lq = random_augmentation(img_gt, img_lq)
+        elif self.opt.get('resize_to') is not None:
+            resize_to = int(self.opt['resize_to'])
+            img_gt = cv2.resize(img_gt, (resize_to, resize_to), interpolation=cv2.INTER_AREA)
+            img_lq = cv2.resize(img_lq, (resize_to, resize_to), interpolation=cv2.INTER_AREA)
             
         # BGR to RGB, HWC to CHW, numpy to tensor
         img_gt, img_lq = img2tensor([img_gt, img_lq],
